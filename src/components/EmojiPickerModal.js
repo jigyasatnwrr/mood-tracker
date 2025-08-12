@@ -1,6 +1,14 @@
 import React from "react";
 
-const emojiOptions = ["😊", "😢", "😡", "😍", "😴", "🤩", "😐"];
+const emojiOptions = [
+  { emoji: "😊", name: "Happy" },
+  { emoji: "😢", name: "Sad" },
+  { emoji: "😡", name: "Angry" },
+  { emoji: "😍", name: "In Love" },
+  { emoji: "😴", name: "Sleepy" },
+  { emoji: "🤩", name: "Excited" },
+  { emoji: "😐", name: "Neutral" },
+];
 
 export default function EmojiPickerModal({ visible, onClose, onSelect }) {
   if (!visible) return null;
@@ -16,7 +24,7 @@ export default function EmojiPickerModal({ visible, onClose, onSelect }) {
         <div className="modal-content">
           {/* Header */}
           <div className="modal-header">
-            <h5 className="modal-title">What's Your Today mood?</h5>
+            <h5 className="modal-title">What's Your Today Mood?</h5>
             <button
               type="button"
               className="btn-close"
@@ -26,27 +34,39 @@ export default function EmojiPickerModal({ visible, onClose, onSelect }) {
           </div>
 
           {/* Body */}
-          <div className="modal-body d-flex flex-wrap gap-2 justify-content-center">
-            {emojiOptions.map((emoji) => (
-              <span
+          <div className="modal-body d-flex flex-wrap gap-3 justify-content-center">
+            {emojiOptions.map(({ emoji, name }) => (
+              <div
                 key={emoji}
-                style={{
-                  fontSize: "24px",
-                  cursor: "pointer"
-                }}
+                className="text-center"
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   onSelect(emoji);
                   onClose();
                 }}
               >
-                {emoji}
-              </span>
+                <div style={{ fontSize: "24px" }}>{emoji}</div>
+                <small className="text-muted">{name}</small>
+              </div>
             ))}
           </div>
 
-          
+          {/* Footer */}
+          <div className="modal-footer">
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={onClose}
+            >
+              Close
+            </button>
+            <button type="button" className="btn btn-primary">
+              Save changes
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
